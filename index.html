@@ -1,1 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NCERT Geography Master Challenge (Class 9)PCS & Entrance Level</title>
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #1e293b 100%);
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #6366f1;
+      --accent-hover: #4f46e5;
+      --correct: #10b981;
+      --incorrect: #ef4444;
+      --warning: #f59e0b;
+    }
 
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    body { background: var(--bg-gradient); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+    .container { width: 100%; max-width: 900px; background: var(--card-bg); backdrop-filter: blur(16px); border: 1px solid var(--card-border); border-radius: 20px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); padding: 30px; }
+    
+    header { text-align: center; margin-bottom: 25px; border-bottom: 1px solid var(--card-border); padding-bottom: 15px; }
+    h1 { font-size: 1.6rem; background: linear-gradient(to right, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .meta-bar { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; font-size: 0.9rem; color: var(--text-muted); }
+    
+    .progress-container { width: 100%; background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; overflow: hidden; margin: 15px 0; }
+    .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #6366f1, #a855f7); transition: width 0.3s ease; }
+    
+    .question-card { margin-bottom: 25px; }
+    .chapter-tag { display: inline-block; background: rgba(99, 102, 241, 0.2); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.4); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; margin-bottom: 10px; font-weight: 600; }
+    .question-text { font-size: 1.15rem; line-height: 1.6; font-weight: 500; margin-bottom: 20px; }
+    
+    .options-grid { display: grid; gap: 12px; grid-template-columns: 1fr; }
+    .option-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px 18px; color: var(--text-main); font-size: 0.95rem; text-align: left; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: space-between; }
+    .option-btn:hover:not(:disabled) { background: rgba(255,255,255,0.1); border-color: var(--accent); transform: translateY(-2px); }
+    .option-btn:disabled { cursor: not-allowed; opacity: 0.9; }
+    .option-btn.correct { background: rgba(16, 185, 129, 0.2) !important; border-color: var(--correct) !important; color: #a7f3d0; }
+    .option-btn.incorrect { background: rgba(239, 68, 68, 0.2) !important; border-color: var(--incorrect) !important; color: #fecaca; }
+    
+    .explanation-box { margin-top: 20px; padding: 15px; background: rgba(0,0,0,0.25); border-left: 4px solid var(--accent); border-radius: 8px; font-size: 0.95rem; line-height: 1.5; color: #cbd5e1; display: none; }
+    .explanation-box strong { color: #f8fafc; }
+    
+    .nav-btns { display: flex; justify-content: space-between; gap: 10px; margin-top: 25px; }
+    .btn { background: var(--accent); color: white; border: none; padding: 12px 24px; border-radius: 10px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    .btn:hover { background: var(--accent-hover); }
+    .btn-secondary { background: rgba(255,255,255,0.1); }
+    .btn-secondary:hover { background: rgba(255,255,255,0.2); }
+    
+    .results-screen { text-align: center; }
+    .score-badge { font-size: 3rem; font-weight: 800; color: var(--accent); margin: 15px 0; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; margin: 20px 0; }
+    .stat-card { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; border: 1px solid var(--card-border); }
+    .stat-card h4 { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; }
+    .stat-card p { font-size: 1.4rem; font-weight: 700; margin-top: 5px; }
+    
+    .revision-box { text-align: left; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 12px; margin-top: 20px; }
+    .revision-box h3 { margin-bottom: 10px; font-size: 1.1rem; color: var(--warning); }
+    .revision-box ul { padding-left: 20px; font-size: 0.9rem; color: #cbd5e1; }
+    .revision-box li { margin-bottom: 5px; }
+
+    @media print {
+      body { background: white; color: black; }
+      .container { border: none; box-shadow: none; width: 100%; max-width: 100%; background: white; }
+      .nav-btns, .btn { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" id="quizContainer">
+  <header>
+    <h1>NCERT Geography Master Challenge (Class 9)</h1>
+    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">PCS & Entrance Level Test</p>
+    <div class="meta-bar">
+      <span id="chapterTitle">Loading...</span>
+      <span id="timerText">⏱️ 90:00</span>
+      <span id="scoreText">Score: 0</span>
+    </div>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </header>
+
+  <!-- Quiz Screen -->
+  <div id="quizScreen">
+    <div class="question-card">
+      <span class="chapter-tag" id="qChapter">Chapter</span>
+      <div class="question-text" id="qText">Question text will load here...</div>
+      <div class="options-grid" id="optionsGrid"></div>
+      <div class="explanation-box" id="explanationBox"></div>
+    </div>
+    <div class="nav-btns">
+      <button class="btn btn-secondary" id="prevBtn" onclick="navigate(-1)">Previous</button>
+      <button class="btn" id="nextBtn" onclick="navigate(1)">Next</button>
+    </div>
+  </div>
+
+  <!-- Results Screen -->
+  <div id="resultsScreen" class="results-screen" style="display: none;">
+    <h2>Quiz Complete!</h2>
+    <div class="score-badge" id="finalPercentage">0%</div>
+    <p id="gradeText" style="font-weight: 600; font-size: 1.1rem; margin-bottom: 15px;"></p>
+    
+    <div class="stats-grid">
+      <div class="stat-card"><h4>Total</h4><p id="resTotal">0</p></div>
+      <div class="stat-card"><h4>Correct</h4><p id="resCorrect" style="color: var(--correct)">0</p></div>
+      <div class="stat-card"><h4>Incorrect</h4><p id="resIncorrect" style="color: var(--incorrect)">0</p></div>
+      <div class="stat-card"><h4>Score</h4><p id="resScore">0</p></div>
+    </div>
+
+    <div class="revision-box" id="revisionBox">
+      <h3>Suggested Revision Topics</h3>
+      <ul id="weakTopicsList"></ul>
+    </div>
+
+    <div class="nav-btns" style="margin-top: 30px; justify-content: center; gap: 15px;">
+      <button class="btn" onclick="location.reload()">Restart Quiz</button>
+      <button class="btn btn-secondary" onclick="shareQuiz()">Share Quiz</button>
+      <button class="btn btn-secondary" onclick="window.print()">Download PDF</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================================
+// QUESTION DATASET (NCERT Class 9 Geography - 15 Questions per Chapter)
+// YOU CAN MODIFY ANY QUESTION, OPTIONS, ANSWER, OR EXPLANATION BELOW EASY!
+// ============================================================================
+
+const quizData = [
+  // --------------------------------------------------------------------------
+  // CHAPTER 1: INDIA – SIZE AND LOCATION
+  // --------------------------------------------------------------------------
+  {
+    chapter: "Ch 1: India - Size & Location",
+    topic: "Latitudinal & Longitudinal Extent",
+    question: "Which of the following statements regarding the latitudinal and longitudinal extent of India is/are CORRECT?\n1. The main land of India extends between latitudes 8°4'N and 37°6'N.\n2. The longitudinal extent of India is 68°7'E and 97°25'E.\n3. Both the latitudinal and longitudinal extent of India are roughly 30 degrees.",
+    options: ["1 and 2 only", "2 and 3 only", "1 and 3 only", "1, 2 and 3"],
+    answer: 3,
+    explanation: "All three statements are correct. India lies entirely in the Northern and Eastern hemispheres, with both latitudinal and longitudinal extent measuring about 30°."
+  },
+  {
+    chapter: "Ch 1: India - Size & Location",
+    topic: "Standard Meridian",
+    question: "The Indian Standard Time (IST) meridian (82°30'E) passes through which of the following combinations of Indian states?",
+    options: ["Uttar Pradesh, Madhya Pradesh, Chhattisgarh, Odisha, Andhra Pradesh", "Uttar Pradesh, Bihar, Jharkhand, Odisha, West Bengal", "Madhya Pradesh, Chhattisgarh, Telangana, Andhra Pradesh, Tamil Nadu", "Uttar Pradesh, Madhya Pradesh, Rajasthan, Gujarat, Maharashtra"],
+    answer: 0,
+    explanation: "The Standard Meridian of India (82°30'E) passes through 5 states: Uttar Pradesh, Madhya Pradesh, Chhattisgarh, Odisha, and Andhra Pradesh."
+  },
+  {
+    chapter: "Ch 1: India - Size & Location",
+    topic: "Tropic of Cancer",
+    question: "The Tropic of Cancer (23°30' N) does NOT pass through which of the following states?",
+    options: ["Rajasthan", "Odisha", "Tripura", "Chhattisgarh"],
+    answer: 1,
+    explanation: "The Tropic of Cancer passes through 8 states: Gujarat, Rajasthan, Madhya Pradesh, Chhattisgarh, Jharkhand, West Bengal, Tripura, and Mizoram. It does NOT pass through Odisha."
+  },
+  {
+    chapter: "Ch 1: India - Size & Location",
+    topic: "Extreme Points of India",
+    question: "Assertion (A): Day and night durations are almost equal at Kanyakumari, but not in Kashmir.\nReason (R): Kanyakumari lies close to the Equator, whereas Kashmir lies at a higher latitude away from the Equator.",
+    options: ["Both A and R are true, and R is the correct explanation of A.", "Both A and R are true, but R is NOT the correct explanation of A.", "A is true, but R is false.", "A is false, but R is true."],
+    answer: 0,
+    explanation: "The difference in day and night duration increases from the equator toward the poles. Kanyakumari is situated near 8°4'N (near equator), making day-night length almost equal."
+  },
+  {
+    chapter: "Ch 1: India - Size & Location",
+    topic: "Land Frontiers & Coastline",
+    question: "What is the total length of India's coastline including Andaman & Nicobar and Lakshadweep islands?",
+    options: ["6,100 km", "7,516.6 km", "15,200 km", "9,345 km"],
+    answer: 1,
+    explanation: "The total length of the coastline of the mainland including Andaman & Nicobar and Lakshadweep is 7,516.6 km. The mainland coastline alone is 6,100 km."
+  },
+  {
+    chapter: "Ch 1: India - Size & Location",
+    topic: "Time Lag Calculation",
+    question: "What is the time difference between Arunachal Pradesh (easternmost point) and Gujarat (westernmost point)?",
+    options: ["1 Hour", "1 Hour 30 Minutes", "2 Hours", "2 Hours 30 Minutes"],
+    answer: 2,
+    explanation: "With a longitudinal difference of nearly 30° and 1° equal to 4 minutes (30 × 4 = 120 minutes), there is a 2-hour time lag between Gujarat and Arunachal Pradesh."
+  },
+  {
+    chapter: "Ch 1: India - Size & Location",
+    topic: "Suez Canal Impact",
+    question: "The opening of the Suez Canal in 1869 reduced India's distance from Europe by:",
+    options: ["5,000 km", "7,000 km", "10,000 km", "12,000 km"],
+    answer: 1,
+    explanation: "The opening of the Suez Canal in 1869 reduced the distance between India and Europe by 7,000 km by avoiding the long sea route around Africa."
+  },
+  {
+    chapter: "Ch 1: India - Size & Location",
+    topic: "Neighbors & International Boundaries",
+    question: "Which Indian state shares land borders with three countries: Nepal, Bhutan, and China?",
+    options: ["Arunachal Pradesh", "Sikkim", "West Bengal", "Uttarakhand"],
+    answer: 1,
+    explanation: "Sikkim shares international land borders with three countries: Nepal to the west, Bhutan to the east, and China (Tibet) to the north."
+  },
+  {
+    chapter: "Ch 1: India - Size & Location",
+    topic: "Maritime Neighbors",
+    question: "Which narrow channel of sea separates India from Sri Lanka?",
+    options: ["Ten Degree Channel", "Palk Strait and Gulf of Mannar", "Duncan Passage", "Eight Degree Channel"],
+    answer: 1,
+    explanation: "Sri Lanka is separated from India by a narrow channel of sea formed by the Palk Strait and the Gulf of Mannar."
+  },
+  {
+    chapter: "Ch 1: India - Size & Location",
+    topic: "Area Rank",
+    question: "India accounts for what percentage of the total geographical area of the world?",
+    options: ["1.8%", "2.4%", "3.2%", "4.1%"],
+    answer: 1,
+    explanation: "India's total area is 3.28 million sq km, which constitutes about 2.4 percent of the total geographical area of the world."
+  },
+  {
+    chapter: "Ch 1: India - Size & Location",
+    topic: "Southernmost Point",
+    question: "The southernmost point of the Indian Union, 'Indira Point', got submerged under sea water during the tsunami of which year?",
+    options: ["1999", "2001", "2004", "2008"],
+    answer: 2,
+    explanation: "Indira Point, located in Great Nicobar island, got submerged under seawater during the December 2004 Indian Ocean Tsunami."
+  },
+  {
+    chapter: "Ch 1: India - Size & Location",
+    topic: "Land Boundary Length",
+    question: "What is the total land boundary length of India?",
+    options: ["12,400 km", "15,200 km", "7,516 km", "18,100 km"],
+    answer: 1,
+    explanation: "India has a total land boundary of approximately 15,200 km."
+  },
+  {
+    chapter: "Ch 1: India - Size & Location",
+    topic: "Bordering Countries",
+    question: "Which of the following Indian states does NOT share a border with Myanmar?",
+    options: ["Nagaland", "Manipur", "Assam", "Mizoram"],
+    answer: 2,
+    explanation: "The states bordering Myanmar are Arunachal Pradesh, Nagaland, Manipur, and Mizoram. Assam does not share a border with Myanmar."
+  },
+  {
+    chapter: "Ch 1: India - Size & Location",
+    topic: "Latitudinal Extent Impact",
+    question: "The latitudinal extent of India influences which of the following weather/climate characteristics as one moves from south to north?",
+    options: ["Duration of day and night", "Monsoon onset pattern", "Temperature variations", "All of the above"],
+    answer: 3,
+    explanation: "The latitudinal extent influences temperature ranges, monsoon onset timing, and the duration of day and night as you move from south to north."
+  },
+  {
+    chapter: "Ch 1: India - Size & Location",
+    topic: "Islands Position",
+    question: "In which body of water are the Lakshadweep Islands situated?",
+    options: ["Bay of Bengal", "Arabian Sea", "Indian Ocean", "Andaman Sea"],
+    answer: 1,
+    explanation: "Lakshadweep Islands are located in the Arabian Sea, off the Malabar coast of Kerala."
+  },
+
+  // --------------------------------------------------------------------------
+  // CHAPTER 2: PHYSICAL FEATURES OF INDIA
+  // --------------------------------------------------------------------------
+  {
+    chapter: "Ch 2: Physical Features of India",
+    topic: "Plate Tectonics",
+    question: "According to the Theory of Plate Tectonics, the landmass of India was originally part of which ancient supercontinent?",
+    options: ["Laurasia", "Gondwanaland", "Pangaea Ultima", "Angaraland"],
+    answer: 1,
+    explanation: "The Indian peninsula was part of the ancient southern supercontinent called Gondwanaland, which also included South America, Africa, Antarctica, and Australia."
+  },
+  {
+    chapter: "Ch 2: Physical Features of India",
+    topic: "Himalayan Ranges",
+    question: "Arrange the main parallel ranges of the Himalayas from North to South:\n1. Shiwaliks\n2. Himadri (Great Himalayas)\n3. Himachal (Lesser Himalayas)",
+    options: ["1 - 2 - 3", "2 - 3 - 1", "3 - 2 - 1", "2 - 1 - 3"],
+    answer: 1,
+    explanation: "From North to South: Great Himalayas/Himadri (northernmost) -> Lesser Himalayas/Himachal (middle) -> Shiwaliks (outermost/southernmost)."
+  },
+  {
+    chapter: "Ch 2: Physical Features of India",
+    topic: "Himalayan Peaks",
+    question: "Which is the highest mountain peak located in mainland India?",
+    options: ["Mount Everest", "Kanchenjunga", "Nanda Devi", "Makalu"],
+    answer: 1,
+    explanation: "Kanchenjunga (8,598 m in Sikkim) is the highest peak in India. (Mount Everest is in Nepal)."
+  },
+  {
+    chapter: "Ch 2: Physical Features of India",
+    topic: "Northern Plains Soil",
+    question: "Match the soil/alluvial formations of Northern Plains with their correct definition:\n1. Bhabar: Narrow belt of pebbles along foot of Shiwaliks\n2. Terai: Wet, swampy, and marshy region south of Bhabar\n3. Bhangar: Older alluvium containing calcareous deposits (Kankar)\n4. Khadar: Newer, younger alluvium renewed every year",
+    options: ["1 and 2 only", "3 and 4 only", "1, 2, 3 and 4", "2 and 3 only"],
+    answer: 2,
+    explanation: "All descriptions (Bhabar, Terai, Bhangar, Khadar) are correct per NCERT geography Class 9 definition."
+  },
+  {
+    chapter: "Ch 2: Physical Features of India",
+    topic: "Peninsular Plateau",
+    question: "Which body of water borders the Western Ghats and Eastern Ghats respectively?",
+    options: ["Arabian Sea and Bay of Bengal", "Bay of Bengal and Arabian Sea", "Indian Ocean and Arabian Sea", "Arabian Sea and Andaman Sea"],
+    answer: 0,
+    explanation: "Western Ghats run parallel to the Arabian Sea coast, while Eastern Ghats stretch along the Bay of Bengal coast."
+  },
+  {
+    chapter: "Ch 2: Physical Features of India",
+    topic: "Western Ghats vs Eastern Ghats",
+    question: "Which peak is the highest in the Western Ghats?",
+    options: ["Mahendragiri", "Anamudi", "Doda Betta", "Kalsubai"],
+    answer: 1,
+    explanation: "Anamudi (2,695 metres) located in Kerala is the highest peak in the Western Ghats (and Peninsular India)."
+  },
+  {
+    chapter: "Ch 2: Physical Features of India",
+    topic: "Eastern Ghats",
+    question: "Which peak is the highest peak in the Eastern Ghats according to NCERT Class 9?",
+    options: ["Anamudi", "Doda Betta", "Mahendragiri", "Arma Konda"],
+    answer: 2,
+    explanation: "Per NCERT Class 9 Geography, Mahendragiri (1,501 metres) in Odisha is cited as the highest peak in the Eastern Ghats."
+  },
+  {
+    chapter: "Ch 2: Physical Features of India",
+    topic: "Indian Desert",
+    question: "Crescent-shaped sand dunes found in the Indian Desert (Thar) are called:",
+    options: ["Barchans", "Seifs", "Pediments", "Mesa"],
+    answer: 0,
+    explanation: "Barchans are crescent-shaped dunes that cover larger areas in the Thar Desert near Jaisalmer."
+  },
+  {
+    chapter: "Ch 2: Physical Features of India",
+    topic: "Coastal Plains",
+    question: "The northern part of the Western Coastal Plain is called the:",
+    options: ["Kannad Plain", "Malabar Coast", "Konkan", "Coromandel Coast"],
+    answer: 2,
+    explanation: "The western coast consists of: Konkan (Mumbai-Goa) in the north, Kannad Plain in the center, and Malabar Coast in the south."
+  },
+  {
+    chapter: "Ch 2: Physical Features of India",
+    topic: "Island Groups",
+    question: "Which island in the Andaman and Nicobar group contains India's only active volcano?",
+    options: ["Barren Island", "Narcondam Island", "Ross Island", "Minicoy Island"],
+    answer: 0,
+    explanation: "Barren Island in the Andaman and Nicobar Islands is India's only active volcano."
+  },
+  {
+    chapter: "Ch 2: Physical Features of India",
+    topic: "Himalayan Valleys",
+    question: "Longitudinal valleys lying between Lesser Himalayas and the Shiwaliks are known as:",
+    options: ["Passes", "Duns", "Gorges", "Karewas"],
+    answer: 1,
+    explanation: "The longitudinal valleys lying between lesser Himalaya and the Shiwaliks are known as Duns (e.g., Dehradun, Kotli Dun, Patli Dun)."
+  },
+  {
+    chapter: "Ch 2: Physical Features of India",
+    topic: "Regional Divisions of Himalayas",
+    question: "The part of the Himalayas lying between the Satluj and Kali rivers is known as:",
+    options: ["Punjab Himalayas", "Kumaon Himalayas", "Nepal Himalayas", "Assam Himalayas"],
+    answer: 1,
+    explanation: "The section between Indus and Satluj is Punjab Himalaya; between Satluj and Kali is Kumaon Himalaya; between Kali and Tista is Nepal Himalaya; between Tista and Dihang is Assam Himalaya."
+  },
+  {
+    chapter: "Ch 2: Physical Features of India",
+    topic: "Deccan Trap",
+    question: "The black soil area of the Peninsular Plateau is famously known as:",
+    options: ["Malwa Plateau", "Chota Nagpur Plateau", "Deccan Trap", "Bundelkhand"],
+    answer: 2,
+    explanation: "One of the distinct features of the Peninsular plateau is the black soil area known as the Deccan Trap, of volcanic origin."
+  },
+  {
+    chapter: "Ch 2: Physical Features of India",
+    topic: "Coral Reefs",
+    question: "Lakshadweep islands are composed of small coral islands. What was their former name before 1973?",
+    options: ["Laccadive, Minicoy and Amindivi", "Maldives and Minicoy", "Andaman and Nicobar", "Cannore and Calicut"],
+    answer: 0,
+    explanation: "In 1973, Laccadive, Minicoy, and Amindivi were renamed as Lakshadweep."
+  },
+  {
+    chapter: "Ch 2: Physical Features of India",
+    topic: "Chota Nagpur Plateau",
+    question: "Which river drains the Chota Nagpur Plateau region?",
+    options: ["Narmada", "Tapi", "Damodar", "Chambal"],
+    answer: 2,
+    explanation: "The Damodar river drains the Chota Nagpur plateau, a region rich in mineral deposits."
+  },
+
+  // --------------------------------------------------------------------------
+  // CHAPTER 3: DRAINAGE
+  // --------------------------------------------------------------------------
+  {
+    chapter: "Ch 3: Drainage",
+    topic: "Himalayan vs Peninsular Rivers",
+    question: "Which of the following is a key characteristic of Peninsular rivers compared to Himalayan rivers?",
+    options: ["They are perennial with deep gorges.", "They are seasonal and dependent on rainfall.", "They form extensive meanders in plains.", "They originate from glaciers."],
+    answer: 1,
+    explanation: "Peninsular rivers are seasonal, rain-fed, have shorter and shallower courses, unlike perennial glacier-fed Himalayan rivers."
+  },
+  {
+    chapter: "Ch 3: Drainage",
+    topic: "Indus River System",
+    question: "Where does the River Indus originate?",
+    options: ["Near Mansarovar Lake in Tibet", "Gangotri Glacier", "Yamunotri Glacier", "Verinag Spring in Kashmir"],
+    answer: 0,
+    explanation: "The river Indus originates in Tibet, near Lake Mansarovar."
+  },
+  {
+    chapter: "Ch 3: Drainage",
+    topic: "Indus Water Treaty",
+    question: "According to the regulations of the Indus Water Treaty (1960), India can use what percentage of the total water carried by the Indus river system?",
+    options: ["15%", "20%", "33%", "50%"],
+    answer: 1,
+    explanation: "Under the 1960 Indus Waters Treaty, India can use only 20 percent of the total water carried by the Indus river system."
+  },
+  {
+    chapter: "Ch 3: Drainage",
+    topic: "Ganga Tributaries",
+    question: "At which location do the Bhagirathi and Alaknanda rivers meet to form the Ganga?",
+    options: ["Rudraprayag", "Karnaprayag", "Devprayag", "Vishnuprayag"],
+    answer: 2,
+    explanation: "At Devprayag, the Bhagirathi meets the Alaknanda to form the River Ganga."
+  },
+  {
+    chapter: "Ch 3: Drainage",
+    topic: "Brahmaputra System",
+    question: "The Brahmaputra river is known as _______ in Tibet and _______ in Bangladesh.",
+    options: ["Tsangpo; Jamuna", "Dihang; Padma", "Tsangpo; Meghna", "Shangpo; Surma"],
+    answer: 0,
+    explanation: "In Tibet, the Brahmaputra is called 'Tsangpo', and in Bangladesh, it is known as 'Jamuna'."
+  },
+  {
+    chapter: "Ch 3: Drainage",
+    topic: "River Islands",
+    question: "Which is the world's largest inhabited riverine island formed by the Brahmaputra river?",
+    options: ["Umananda", "Majuli", "Sagar Island", "Divar"],
+    answer: 1,
+    explanation: "Majuli in Assam, formed by the Brahmaputra river, is the largest inhabited riverine island in the world."
+  },
+  {
+    chapter: "Ch 3: Drainage",
+    topic: "West Flowing Rivers",
+    question: "Which two major Peninsular rivers flow westwards and form estuaries instead of deltas?",
+    options: ["Godavari and Krishna", "Narmada and Tapi", "Mahanadi and Kaveri", "Narmada and Godavari"],
+    answer: 1,
+    explanation: "Narmada and Tapi are the two major Peninsular rivers that flow west in rift valleys and form estuaries."
+  },
+  {
+    chapter: "Ch 3: Drainage",
+    topic: "Dakshin Ganga",
+    question: "Which river is known as the 'Dakshin Ganga' due to its length and the area it covers?",
+    options: ["Krishna", "Kaveri", "Godavari", "Mahanadi"],
+    answer: 2,
+    explanation: "Godavari is the largest Peninsular river. Because of its length (1500 km) and extent, it is called 'Dakshin Ganga'."
+  },
+  {
+    chapter: "Ch 3: Drainage",
+    topic: "Narmada River",
+    question: "The Marble Rocks near Jabalpur and the Dhuadhar Falls are created by which river?",
+    options: ["Tapi", "Narmada", "Chambal", "Betwa"],
+    answer: 1,
+    explanation: "The Narmada river creates the famous 'Marble Rocks' gorge and 'Dhuadhar Falls' near Jabalpur, Madhya Pradesh."
+  },
+  {
+    chapter: "Ch 3: Drainage",
+    topic: "Lakes",
+    question: "Which is the largest freshwater lake in India formed by tectonic activity?",
+    options: ["Chilika Lake", "Wular Lake", "Pulicat Lake", "Sambhar Lake"],
+    answer: 1,
+    explanation: "Wular Lake in Jammu & Kashmir is the result of tectonic activity and is the largest freshwater lake in India."
+  },
+  {
+    chapter: "Ch 3: Drainage",
+    topic: "Salt Water Lakes",
+    question: "Which famous salt-water lake in Rajasthan is used for salt production?",
+    options: ["Lonar Lake", "Sambhar Lake", "Vembanad Lake", "Kolleru Lake"],
+    answer: 1,
+    explanation: "Sambhar Lake in Rajasthan is a salt-water lake whose waters are used for producing salt."
+  },
+  {
+    chapter: "Ch 3: Drainage",
+    topic: "Drainage Patterns",
+    question: "When streams flow in different directions from a central peak or dome-like structure, the pattern developed is called:",
+    options: ["Dendritic pattern", "Trellis pattern", "Radial pattern", "Rectangular pattern"],
+    answer: 2,
+    explanation: "A radial pattern develops when streams flow in different directions from a central peak or dome-like structure (e.g., streams originating from Amarkantak plateau)."
+  },
+  {
+    chapter: "Ch 3: Drainage",
+    topic: "Kaveri River",
+    question: "Which river forms the second largest waterfall in India, known as Shivanasamudra Falls?",
+    options: ["Sharavati", "Kaveri", "Godavari", "Krishna"],
+    answer: 1,
+    explanation: "The river Kaveri makes the second biggest waterfall in India, known as Sivasamudram Falls."
+  },
+  {
+    chapter: "Ch 3: Drainage",
+    topic: "River Conservation",
+    question: "The Ganga Action Plan (GAP) Phase I was launched in which year?",
+    options: ["1975", "1985", "1995", "2000"],
+    answer: 1,
+    explanation: "The Ganga Action Plan (GAP) Phase I was initiated in 1985 to improve river water quality."
+  },
+  {
+    chapter: "Ch 3: Drainage",
+    topic: "Ox-bow Lakes",
+    question: "An ox-bow lake is formed by which agent of erosion and deposition?",
+    options: ["Glaciers in high mountains", "Meandering rivers in floodplains", "Sea waves along coastlines", "Wind action in deserts"],
+    answer: 1,
+    explanation: "A meandering river across a floodplain forms cut-offs that later turn into ox-bow lakes."
+  },
+
+  // --------------------------------------------------------------------------
+  // CHAPTER 4: CLIMATE
+  // --------------------------------------------------------------------------
+  {
+    chapter: "Ch 4: Climate",
+    topic: "Climate Controls",
+    question: "Which of the following is NOT one of the six major controls of the climate of any place?",
+    options: ["Latitude and Altitude", "Pressure and Wind System", "Distance from sea (Continentalism)", "Longitude and Time Zone"],
+    answer: 3,
+    explanation: "The 6 major controls of climate are Latitude, Altitude, Pressure & Wind system, Distance from the sea, Ocean currents, and Relief features. Longitude does not control climate."
+  },
+  {
+    chapter: "Ch 4: Climate",
+    topic: "Coriolis Force & Ferrel's Law",
+    question: "Due to the Coriolis force, winds get deflected to the _______ in the Northern Hemisphere and to the _______ in the Southern Hemisphere.",
+    options: ["Right; Left", "Left; Right", "North; South", "East; West"],
+    answer: 0,
+    explanation: "Ferrel's Law states that Coriolis force deflects winds towards the right in the Northern Hemisphere and left in the Southern Hemisphere."
+  },
+  {
+    chapter: "Ch 4: Climate",
+    topic: "Jet Streams",
+    question: "What are Jet Streams?",
+    options: ["Warm ocean currents flowing along the coast", "Fast flowing, narrow belt of high-altitude westerly winds in the troposphere", "Catabatic winds blowing in desert nights", "Seasonal winds causing winter rainfall in Tamil Nadu"],
+    answer: 1,
+    explanation: "Jet streams are a narrow belt of high altitude (above 12,000 m) westerly winds in the troposphere with speeds varying from 110 km/h to 184 km/h."
+  },
+  {
+    chapter: "Ch 4: Climate",
+    topic: "Western Cyclonic Disturbances",
+    question: "The western cyclonic disturbances which bring winter rainfall to northwestern parts of India originate over which sea?",
+    options: ["Red Sea", "Mediterranean Sea", "Caspian Sea", "Arabian Sea"],
+    answer: 1,
+    explanation: "Western cyclonic disturbances originate over the Mediterranean Sea and travel eastward into north-western India."
+  },
+  {
+    chapter: "Ch 4: Climate",
+    topic: "El Niño & ENSO",
+    question: "What is 'El Niño'?",
+    options: ["A cold ocean current off the coast of Peru", "A periodic warm ocean current replacing the cold Peruvian current", "A tropical cyclone in the Bay of Bengal", "The retreat of monsoon winds from North India"],
+    answer: 1,
+    explanation: "El Niño is a periodic warm current that flows past the Peruvian coast every 2 to 5 years, impacting monsoon circulation."
+  },
+  {
+    chapter: "Ch 4: Climate",
+    topic: "Pre-Monsoon Local Winds",
+    question: "Match the local pre-monsoon winds with their respective features/regions:\n1. Loo: Striking, hot dry winds blowing over North India in summer\n2. Mango Showers: Pre-monsoon showers in Kerala & Karnataka helping ripe mangoes\n3. Kaal Baisakhi: Dreaded evening thunderstorms in West Bengal",
+    options: ["1 and 2 only", "2 and 3 only", "1 and 3 only", "1, 2 and 3"],
+    answer: 3,
+    explanation: "All three definitions accurately describe these seasonal weather phenomena."
+  },
+  {
+    chapter: "Ch 4: Climate",
+    topic: "Wettest Place",
+    question: "Mawsynram, the wettest place on Earth with the highest average rainfall, is located in which hill range of Meghalaya?",
+    options: ["Garo Hills", "Khasi Hills", "Jaintia Hills", "Mikir Hills"],
+    answer: 1,
+    explanation: "Mawsynram is located in the southern range of the Khasi Hills in Meghalaya."
+  },
+  {
+    chapter: "Ch 4: Climate",
+    topic: "Break in Monsoon",
+    question: "What is meant by 'Break' in the monsoon?",
+    options: ["Permanent end of rainfall season", "Wet and dry spells where rainless intervals alternate with rainy periods", "Delay in arrival of monsoon by one month", "Splitting of monsoon winds over Western Ghats"],
+    answer: 1,
+    explanation: "Monsoon rainfall has wet and dry spells; the rainless intervals between spells are called 'breaks' in monsoon."
+  },
+  {
+    chapter: "Ch 4: Climate",
+    topic: "Retreating Monsoon",
+    question: "The Tamil Nadu coast receives a large portion of its annual rainfall during October-November from which winds?",
+    options: ["South-West Monsoon", "North-East Retreating Monsoon", "Sub-tropical Westerly Jet Stream", "Local sea breezes"],
+    answer: 1,
+    explanation: "During October-November (retreating monsoon season), North-East trade winds blow over the Bay of Bengal and pick up moisture, causing heavy rain along the Tamil Nadu coast."
+  },
+  {
+    chapter: "Ch 4: Climate",
+    topic: "Burst of Monsoon",
+    question: "What is termed as the 'Burst' of monsoon?",
+    options: ["Sudden thunderstorm during October", "Sudden arrival of heavy rainfall that continues constantly for several days in early June", "Formation of low pressure over Thar Desert", "Dust storms in May in Rajasthan"],
+    answer: 1,
+    explanation: "Around the time of arrival, normal rainfall increases suddenly and continues constantly for several days; this is known as the 'burst' of the monsoon."
+  },
+  {
+    chapter: "Ch 4: Climate",
+    topic: "ITCZ",
+    question: "What does ITCZ stand for in atmospheric science?",
+    options: ["International Tropical Convergence Zone", "Inter Tropical Convergence Zone", "Inter Temperate Climate Zone", "Intra Tropical Circulation Zone"],
+    answer: 1,
+    explanation: "ITCZ stands for Inter Tropical Convergence Zone, a broad trough of low pressure in equatorial latitudes where trade winds converge."
+  },
+  {
+    chapter: "Ch 4: Climate",
+    topic: "Temperature Contrast",
+    question: "Which region in India experiences the highest annual temperature range (contrast between summer and winter)?",
+    options: ["Mumbai coast", "Thiruvananthapuram", "Interior North-Western India (e.g., Thar/Punjab)", "Chennai"],
+    answer: 2,
+    explanation: "Continental interiors away from ocean moderating effects (like Northwestern India) experience high temperature ranges between summer and winter."
+  },
+  {
+    chapter: "Ch 4: Climate",
+    topic: "October Heat",
+    question: "The oppressive weather during the transition period between rainy season and winter, marked by high temperature and high humidity, is called:",
+    options: ["Loo", "October Heat", "Monsoon Break", "Mango Shower"],
+    answer: 1,
+    explanation: "Owing to conditions of high temperature and humidity, the weather becomes oppressive during October days, commonly known as 'October heat'."
+  },
+  {
+    chapter: "Ch 4: Climate",
+    topic: "Monsoon Wind Direction",
+    question: "The direction of the summer monsoon winds entering India is generally:",
+    options: ["North-East to South-West", "South-West to North-East", "East to West", "North-West to South-East"],
+    answer: 1,
+    explanation: "The moisture-laden summer monsoon winds blow from the South-West to the North-East across the Indian subcontinent."
+  },
+  {
+    chapter: "Ch 4: Climate",
+    topic: "Mahawat",
+    question: "The total amount of winter rainfall locally known as 'Mahawat' is crucial for the cultivation of which crop?",
+    options: ["Kharif crops", "Rabi crops", "Zaid crops", "Tea crops"],
+    answer: 1,
+    explanation: "Winter precipitation locally called 'Mahawat' is small in quantity but of immense importance for the growth of 'Rabi' crops like wheat."
+  },
+
+  // --------------------------------------------------------------------------
+  // CHAPTER 5: NATURAL VEGETATION AND WILDLIFE
+  // --------------------------------------------------------------------------
+  {
+    chapter: "Ch 5: Natural Vegetation & Wildlife",
+    topic: "Flora vs Fauna & Endemic Species",
+    question: "Plant species which are purely native to a specific region and not introduced from outside are known as:",
+    options: ["Exotic species", "Endemic or Indigenous species", "Extinct species", "Migratory species"],
+    answer: 1,
+    explanation: "The virgin vegetation which is purely Indian (native) is known as endemic or indigenous species, while those coming from outside India are exotic."
+  },
+  {
+    chapter: "Ch 5: Natural Vegetation & Wildlife",
+    topic: "Tropical Rain Forests",
+    question: "Which tree species is characteristic of Tropical Evergreen (Rain) Forests?",
+    options: ["Teak and Sal", "Ebony, Mahogany, Rosewood", "Acacia and Babool", "Sundari and Sundarbans palm"],
+    answer: 1,
+    explanation: "Commercially important trees of Tropical Rain Forests include Ebony, Mahogany, Rosewood, Rubber, and Cinchona."
+  },
+  {
+    chapter: "Ch 5: Natural Vegetation & Wildlife",
+    topic: "Tropical Deciduous Forests",
+    question: "What is the most widespread forest category in India?",
+    options: ["Tropical Evergreen Forests", "Tropical Deciduous Forests", "Montane Forests", "Mangrove Forests"],
+    answer: 1,
+    explanation: "Tropical Deciduous Forests are the most widespread forests in India, also called monsoon forests."
+  },
+  {
+    chapter: "Ch 5: Natural Vegetation & Wildlife",
+    topic: "Deciduous Sub-types",
+    question: "Teak is the most dominant species of which forest type receiving 100-200 cm rainfall?",
+    options: ["Moist Deciduous Forests", "Dry Deciduous Forests", "Thorn Forests", "Evergreen Forests"],
+    answer: 0,
+    explanation: "Moist Deciduous forests exist in areas receiving 100 to 200 cm rainfall. Teak is the most dominant species of this forest."
+  },
+  {
+    chapter: "Ch 5: Natural Vegetation & Wildlife",
+    topic: "Thorn Forests and Scrub",
+    question: "In regions with less than 70 cm of rainfall, the natural vegetation consists of thorny trees and bushes. Which plant has long roots penetrating deep into soil?",
+    options: ["Acacia, Cacti, Euphorbia", "Teak, Sal, Sheesham", "Ebony, Rubber, Cinchona", "Pine, Deodar, Silver fir"],
+    answer: 0,
+    explanation: "Thorn forests contain Acacias, Palms, Euphorbias, and Cacti. They have deep roots to explore moisture."
+  },
+  {
+    chapter: "Ch 5: Natural Vegetation & Wildlife",
+    topic: "Montane Vegetation Vertical Zonation",
+    question: "Match altitude zones in Montane forests with corresponding vegetation:\n1. 1000 - 2000m: Wet Temperate (Oak, Chestnut)\n2. 1500 - 3000m: Temperate Coniferous (Pine, Deodar, Cedar, Spruce)\n3. Above 3600m: Alpine Vegetation (Silver fir, Junipers, Pines, Birches)",
+    options: ["1 and 2 only", "2 and 3 only", "1 and 3 only", "1, 2 and 3"],
+    answer: 3,
+    explanation: "All three vertical zonation levels match altitude bands in the Himalayas as outlined in NCERT."
+  },
+  {
+    chapter: "Ch 5: Natural Vegetation & Wildlife",
+    topic: "Medicinal Plants",
+    question: "Which Indian medicinal plant is used to treat blood pressure and is found ONLY in India?",
+    options: ["Sarpagandha", "Jamun", "Arjun", "Tulsi"],
+    answer: 0,
+    explanation: "Sarpagandha is used to treat blood pressure and is found exclusively in India."
+  },
+  {
+    chapter: "Ch 5: Natural Vegetation & Wildlife",
+    topic: "Mangrove Forests",
+    question: "The famous 'Sundari' trees, providing durable hard timber, are found in which vegetation type?",
+    options: ["Tropical Evergreen", "Mangrove (Tidal) Forests", "Montane Forests", "Tropical Thorn Forests"],
+    answer: 1,
+    explanation: "In the Ganga-Brahmaputra delta, Sundari trees are abundant, providing durable hard timber. The delta is named Sundarbans after these trees."
+  },
+  {
+    chapter: "Ch 5: Natural Vegetation & Wildlife",
+    topic: "Wildlife Habitats",
+    question: "Gir Forest in Gujarat is the last remaining natural habitat of which species?",
+    options: ["One-horned Rhinoceros", "Asiatic Lion", "Royal Bengal Tiger", "Snow Leopard"],
+    answer: 1,
+    explanation: "The Gir National Park in Gujarat is the last remaining natural habitat of the Asiatic Lion."
+  },
+  {
+    chapter: "Ch 5: Natural Vegetation & Wildlife",
+    topic: "Rhinoceros Habitat",
+    question: "The natural habitat of the One-horned Rhinoceros in India is found in the swampy and marshy lands of:",
+    options: ["Gujarat and Rajasthan", "Assam and West Bengal", "Madhya Pradesh and Chhattisgarh", "Kerala and Tamil Nadu"],
+    answer: 1,
+    explanation: "One-horned rhinoceroses live in the swampy and marshy lands of Assam and West Bengal."
+  },
+  {
+    chapter: "Ch 5: Natural Vegetation & Wildlife",
+    topic: "Biosphere Reserves",
+    question: "How many Biosphere Reserves were established in India as listed in NCERT Class 9?",
+    options: ["10", "14", "18", "25"],
+    answer: 2,
+    explanation: "NCERT Class 9 Geography documents 18 Biosphere Reserves set up in India to protect flora and fauna."
+  },
+  {
+    chapter: "Ch 5: Natural Vegetation & Wildlife",
+    topic: "UNESCO World Network",
+    question: "Which of the following Biosphere Reserves of India is NOT included in the UNESCO World Network of Biosphere Reserves?",
+    options: ["Nilgiri", "Sundarbans", "Gulf of Mannar", "Cold Desert (Himachal)"],
+    answer: 3,
+    explanation: "Nilgiri, Sundarbans, Nanda Devi, and Gulf of Mannar were among the first included in the UNESCO world network."
+  },
+  {
+    chapter: "Ch 5: Natural Vegetation & Wildlife",
+    topic: "Wildlife Protection Act",
+    question: "In which year was the Wildlife Protection Act implemented in India?",
+    options: ["1952", "1972", "1982", "1992"],
+    answer: 1,
+    explanation: "The Wildlife Protection Act was implemented in India in 1972 to protect plant and animal species."
+  },
+  {
+    chapter: "Ch 5: Natural Vegetation & Wildlife",
+    topic: "Migratory Birds",
+    question: "During winter, Siberian Cranes migrate in large numbers to which wetland region in Rajasthan?",
+    options: ["Chilika Lake", "Rann of Kachchh", "Keoladeo Ghana National Park (Bharatpur)", "Pulicat Lake"],
+    answer: 2,
+    explanation: "Siberian Cranes visit places like Bharatpur (Keoladeo Ghana National Park) in Rajasthan during winter."
+  },
+  {
+    chapter: "Ch 5: Natural Vegetation & Wildlife",
+    topic: "Alpine Pastures",
+    question: "Nomadic tribes like Gujjars and Bakarwals use high alpine pastures for grazing their cattle. What are these pastures called in local geography?",
+    options: ["Duns", "Bugyals", "Terai", "Khadar"],
+    answer: 1,
+    explanation: "At higher altitudes, mosses and lichens form alpine vegetation. High alpine pastures used by Gujjars/Bakarwals are called Bugyals in the Himalayas."
+  },
+
+  // --------------------------------------------------------------------------
+  // CHAPTER 6: POPULATION
+  // --------------------------------------------------------------------------
+  {
+    chapter: "Ch 6: Population",
+    topic: "Census Definition",
+    question: "A Census is an official enumeration of population done periodically. In India, the first complete census was conducted in which year?",
+    options: ["1872", "1881", "1901", "1951"],
+    answer: 1,
+    explanation: "The first non-synchronous census was in 1872, but the first complete/synchronous census of India took place in 1881."
+  },
+  {
+    chapter: "Ch 6: Population",
+    topic: "Population Density Calculation",
+    question: "Population density is calculated as the number of persons per:",
+    options: ["Square Kilometer", "Hectare", "Square Mile", "100 Square Meters"],
+    answer: 0,
+    explanation: "Population density is calculated as the number of persons per unit area, usually per square kilometer."
+  },
+  {
+    chapter: "Ch 6: Population",
+    topic: "2011 Census Density",
+    question: "According to 2011 Census data in NCERT, what was the population density of India?",
+    options: ["324 persons / sq km", "382 persons / sq km", "415 persons / sq km", "275 persons / sq km"],
+    answer: 1,
+    explanation: "Per the Census 2011, the population density of India was 382 persons per sq km."
+  },
+  {
+    chapter: "Ch 6: Population",
+    topic: "State Population Share",
+    question: "Which state is the most populous in India according to the 2011 Census, accounting for about 16% of India's population?",
+    options: ["Maharashtra", "Bihar", "Uttar Pradesh", "West Bengal"],
+    answer: 2,
+    explanation: "Uttar Pradesh is the most populous state in India with a population share of nearly 16%."
+  },
+  {
+    chapter: "Ch 6: Population",
+    topic: "Lowest Density State",
+    question: "Which Indian state has the lowest population density according to 2011 Census (17 persons per sq km)?",
+    options: ["Sikkim", "Arunachal Pradesh", "Mizoram", "Ladakh"],
+    answer: 1,
+    explanation: "Arunachal Pradesh had a population density of just 17 persons per square kilometer in the 2011 Census."
+  },
+  {
+    chapter: "Ch 6: Population",
+    topic: "Components of Population Growth",
+    question: "The three main components of population change are:",
+    options: ["Birth rate, Death rate, and Migration", "Fertility rate, Literacy rate, and Mortality", "Poverty, Urbanization, and Education", "Sex ratio, Age structure, and Health"],
+    answer: 0,
+    explanation: "The three primary components of population growth/change are Birth Rate, Death Rate, and Migration."
+  },
+  {
+    chapter: "Ch 6: Population",
+    topic: "Natural Increase",
+    question: "Natural increase of population is defined as the difference between:",
+    options: ["Birth rate and Death rate", "In-migration and Out-migration", "Literacy rate and Illiteracy rate", "Working age and Dependent age population"],
+    answer: 0,
+    explanation: "The natural increase of population is the difference between birth rate and death rate."
+  },
+  {
+    chapter: "Ch 6: Population",
+    topic: "Internal vs International Migration",
+    question: "Internal migration within a country changes:",
+    options: ["The total size of the population", "The distribution of population within the nation", "The international birth rate", "The total land area of states"],
+    answer: 1,
+    explanation: "Internal migration does not change the total size of the nation's population, but it alters the distribution of population across regions/states."
+  },
+  {
+    chapter: "Ch 6: Population",
+    topic: "Sex Ratio",
+    question: "Sex ratio is defined as the number of females per:",
+    options: ["100 Males", "500 Males", "1000 Males", "10,000 Males"],
+    answer: 2,
+    explanation: "Sex ratio is defined as the number of females per 1,000 males in the population."
+  },
+  {
+    chapter: "Ch 6: Population",
+    topic: "Literacy Rate Criterion",
+    question: "According to the Census, a person is considered 'Literate' if they are aged _______ years and above and can read and write with understanding in any language.",
+    options: ["5 years", "6 years", "7 years", "10 years"],
+    answer: 2,
+    explanation: "According to Census standards, a person aged 7 years and above who can read and write with understanding in any language is treated as literate."
+  },
+  {
+    chapter: "Ch 6: Population",
+    topic: "Occupational Structure",
+    question: "Match economic sectors with their activities:\n1. Primary: Agriculture, forestry, animal husbandry, fishing, mining\n2. Secondary: Manufacturing industry, building and construction work\n3. Tertiary: Transport, communications, commerce, administration, services",
+    options: ["1 and 2 only", "2 and 3 only", "1 and 3 only", "1, 2 and 3"],
+    answer: 3,
+    explanation: "All three sector classifications are correctly matched according to economic geography standards."
+  },
+  {
+    chapter: "Ch 6: Population",
+    topic: "Adolescent Population",
+    question: "The National Population Policy (NPP 2000) identifies adolescents as a major section requiring special attention. What age group constitutes adolescents?",
+    options: ["5 to 14 years", "10 to 19 years", "15 to 24 years", "18 to 35 years"],
+    answer: 1,
+    explanation: "Adolescents are generally grouped in the age bracket of 10 to 19 years."
+  },
+  {
+    chapter: "Ch 6: Population",
+    topic: "Age Structure Categories",
+    question: "The population of a nation is generally grouped into three broad categories: Children (below 15 yrs), Working Age (15-59 yrs), and Aged (above 59 yrs). Which group constitutes the economically productive population?",
+    options: ["Children", "Working Age (15-59 years)", "Aged (above 59 years)", "Both Children and Aged"],
+    answer: 1,
+    explanation: "The Working Age group (15-59 years) is economically productive and biologically reproductive."
+  },
+  {
+    chapter: "Ch 6: Population",
+    topic: "NPP 2000 Goal",
+    question: "National Population Policy (NPP) 2000 provided a policy framework for imparting free and compulsory school education up to what age?",
+    options: ["10 years of age", "14 years of age", "16 years of age", "18 years of age"],
+    answer: 1,
+    explanation: "NPP 2000 provided a policy framework for imparting free and compulsory school education up to 14 years of age."
+  },
+  {
+    chapter: "Ch 6: Population",
+    topic: "Push & Pull Migration Factors",
+    question: "In India, most internal migrations take place from rural to urban areas primarily due to 'push' factors in rural areas. Which of the following is a push factor?",
+    options: ["Adverse conditions like poverty and unemployment in rural areas", "Increased job opportunities in cities", "Better living conditions in urban areas", "Availability of higher education in metros"],
+    answer: 0,
+    explanation: "Poverty and lack of employment opportunities in rural areas act as 'push' factors forcing people to migrate."
+  }
+];
+
+// ============================================================================
+// APP ENGINE LOGIC
+// ============================================================================
+
+let currentIdx = 0;
+let userAnswers = new Array(quizData.length).fill(null);
+let score = 0;
+let timerSeconds = 5400; // 90 mins
+let timerInterval = null;
+
+function initQuiz() {
+  currentIdx = 0;
+  score = 0;
+  userAnswers.fill(null);
+  showQuestion(currentIdx);
+  startTimer();
+}
+
+function startTimer() {
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    let m = Math.floor(timerSeconds / 60);
+    let s = timerSeconds % 60;
+    document.getElementById('timerText').innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+    if (timerSeconds <= 0) {
+      clearInterval(timerInterval);
+      finishQuiz();
+    }
+  }, 1000);
+}
+
+function showQuestion(idx) {
+  const q = quizData[idx];
+  document.getElementById('chapterTitle').innerText = q.chapter;
+  document.getElementById('qChapter').innerText = `${q.chapter} • ${q.topic}`;
+  document.getElementById('qText').innerText = `Q${idx + 1}. ${q.question}`;
+  
+  const progressPct = ((idx + 1) / quizData.length) * 100;
+  document.getElementById('progressBar').style.width = `${progressPct}%`;
+  
+  const grid = document.getElementById('optionsGrid');
+  grid.innerHTML = '';
+  
+  const expBox = document.getElementById('explanationBox');
+  expBox.style.display = 'none';
+
+  q.options.forEach((optText, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = `<span><strong>${String.fromCharCode(65 + i)}.</strong> ${optText}</span>`;
+    
+    if (userAnswers[idx] !== null) {
+      btn.disabled = true;
+      if (i === q.answer) btn.classList.add('correct');
+      if (userAnswers[idx] === i && i !== q.answer) btn.classList.add('incorrect');
+    } else {
+      btn.onclick = () => selectOption(idx, i);
+    }
+    grid.appendChild(btn);
+  });
+
+  if (userAnswers[idx] !== null) {
+    expBox.style.display = 'block';
+    expBox.innerHTML = `<strong>Explanation:</strong> ${q.explanation}`;
+  }
+
+  document.getElementById('prevBtn').disabled = (idx === 0);
+  document.getElementById('nextBtn').innerText = (idx === quizData.length - 1) ? "Submit Quiz" : "Next";
+}
+
+function selectOption(qIdx, optIdx) {
+  userAnswers[qIdx] = optIdx;
+  if (optIdx === quizData[qIdx].answer) {
+    score += 1;
+  }
+  document.getElementById('scoreText').innerText = `Score: ${score}`;
+  showQuestion(qIdx);
+}
+
+function navigate(direction) {
+  if (direction === 1 && currentIdx === quizData.length - 1) {
+    finishQuiz();
+    return;
+  }
+  currentIdx = Math.max(0, Math.min(quizData.length - 1, currentIdx + direction));
+  showQuestion(currentIdx);
+}
+
+function finishQuiz() {
+  clearInterval(timerInterval);
+  document.getElementById('quizScreen').style.display = 'none';
+  document.getElementById('resultsScreen').style.display = 'block';
+
+  const total = quizData.length;
+  let correctCount = 0;
+  let weakTopics = new Set();
+
+  quizData.forEach((q, i) => {
+    if (userAnswers[i] === q.answer) {
+      correctCount++;
+    } else {
+      weakTopics.add(`${q.chapter} - ${q.topic}`);
+    }
+  });
+
+  const pct = Math.round((correctCount / total) * 100);
+  document.getElementById('finalPercentage').innerText = `${pct}%`;
+  document.getElementById('resTotal').innerText = total;
+  document.getElementById('resCorrect').innerText = correctCount;
+  document.getElementById('resIncorrect').innerText = total - correctCount;
+  document.getElementById('resScore').innerText = `${correctCount}/${total}`;
+
+  let grade = "";
+  if (pct >= 85) grade = "🏆 Outstanding (PCS/UPSC Ready)";
+  else if (pct >= 70) grade = "🌟 Very Good (Solid Conceptual Clarity)";
+  else if (pct >= 50) grade = "👍 Good Effort (Needs Revision)";
+  else grade = "📚 Keep Learning (Re-read NCERT Class 9 Textbook)";
+  
+  document.getElementById('gradeText').innerText = grade;
+
+  const list = document.getElementById('weakTopicsList');
+  list.innerHTML = "";
+  if (weakTopics.size === 0) {
+    list.innerHTML = "<li>🎉 Excellent! No major weak areas identified.</li>";
+  } else {
+    Array.from(weakTopics).slice(0, 8).forEach(topic => {
+      const li = document.createElement('li');
+      li.innerText = topic;
+      list.appendChild(li);
+    });
+  }
+}
+
+function shareQuiz() {
+  const text = `I just completed the NCERT Geography Class 9 Master Challenge! Take the quiz and test your concepts.`;
+  if (navigator.share) {
+    navigator.share({ title: 'NCERT Geography Quiz', text: text, url: window.location.href });
+  } else {
+    navigator.clipboard.writeText(`${text} ${window.location.href}`);
+    alert("Quiz link copied to clipboard! Share it with your friends on WhatsApp.");
+  }
+}
+
+// Keyboard Controls: 1-4 for options, Left/Right Arrows for Navigation
+document.addEventListener('keydown', (e) => {
+  if (document.getElementById('quizScreen').style.display === 'none') return;
+  if (e.key === 'ArrowRight') navigate(1);
+  if (e.key === 'ArrowLeft') navigate(-1);
+  if (['1','2','3','4'].includes(e.key) && userAnswers[currentIdx] === null) {
+    selectOption(currentIdx, parseInt(e.key) - 1);
+  }
+});
+
+// Start application
+initQuiz();
+</script>
+</body>
+</html>
